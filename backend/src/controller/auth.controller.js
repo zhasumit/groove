@@ -1,6 +1,6 @@
-import { User } from "../models/user.models";
+import { User } from "../models/user.models.js";
 
-export const authCallback = async (req, res) => {
+export const authCallback = async (req, res, next) => {
     try {
         const { id, firstName, lastName, imageUrl } = req.body;
         // get the user if there
@@ -16,6 +16,6 @@ export const authCallback = async (req, res) => {
         res.status(200).json({ success: true });
     } catch (error) {
         console.log("Error in callbacks", error);
-        res.status(500).json({ message: "Internal server error", error });
+        next(error);
     }
 };
